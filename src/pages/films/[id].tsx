@@ -2,6 +2,7 @@ import { GetStaticPaths, GetStaticProps } from "next";
 import Image from "next/image";
 import { Navbar } from "@/components";
 import { useEffect, useState } from "react";
+import Link from "next/link";
 
 type Film = {
   id: string;
@@ -45,8 +46,10 @@ export default function FilmDetail({ film }: { film: Film }) {
       const res = await fetch("https://ghibliapi.vercel.app/films");
       const films: Film[] = await res.json();
 
-      const filteredFilms = films.filter((f) => f.id !== film.id).slice(0, 5);
-      setRelatedFilms(filteredFilms);
+      const filteredFilms = films.filter((f) => f.id !== film.id);
+      const shuffledFilms = filteredFilms.sort(() => Math.random() - 0.5);
+
+      setRelatedFilms(shuffledFilms.slice(0, 5));
     }
 
     fetchRelatedFilms();
@@ -117,9 +120,18 @@ export default function FilmDetail({ film }: { film: Film }) {
                     {relatedFilm.release_date}
                   </p>
                 </div>
-                <p className="text-white text-sm line-clamp-2">
+                <p className="text-white text-sm line-clamp-2 sm:line-clamp-none">
                   {relatedFilm.description}
                 </p>
+                <Link
+                  key={relatedFilm.id}
+                  href={`/films/${relatedFilm.id}`}
+                  passHref
+                >
+                  <p className="text-sm text-blue-400 hover:underline">
+                    See more
+                  </p>
+                </Link>
               </div>
             </div>
           ))}
