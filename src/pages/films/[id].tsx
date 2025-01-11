@@ -71,6 +71,7 @@ export default function FilmDetail({ film }: { film: Film }) {
             <Image
               src={film.image}
               alt={film.title}
+              priority
               width={200}
               height={345}
               className="rounded-lg shadow-lg mb-6 md:mb-0 md:mr-8"
