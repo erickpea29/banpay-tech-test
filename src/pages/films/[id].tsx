@@ -1,9 +1,8 @@
 import { GetStaticPaths, GetStaticProps } from "next";
 import Image from "next/image";
-import { Navbar } from "@/components";
+import { Navbar, RelatedFilms, Footer } from "@/components";
 import { useEffect, useState } from "react";
 import { Film } from "@/types/film";
-import { RelatedFilms } from "@/components";
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const res = await fetch("https://ghibliapi.vercel.app/films");
@@ -42,7 +41,7 @@ export default function FilmDetail({ film }: { film: Film }) {
   }, [film.id]);
 
   return (
-    <main>
+    <main className="bg-gray-100">
       <Navbar />
       <div
         className="relative max-h-full bg-cover bg-center"
@@ -80,6 +79,7 @@ export default function FilmDetail({ film }: { film: Film }) {
       </div>
 
       <RelatedFilms films={relatedFilms} />
+      <Footer />
     </main>
   );
 }

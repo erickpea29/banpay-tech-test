@@ -1,6 +1,4 @@
-import { Navbar } from "@/components";
-import Image from "next/image";
-import Link from "next/link";
+import { Navbar, FilmList, Footer } from "@/components";
 import { Film } from "@/types/film";
 
 export async function getStaticProps() {
@@ -29,28 +27,10 @@ export default function Home({ films }: { films: Film[] }) {
           </p>
         </div>
         <div className="mx-auto max-w-7xl px-2 sm:px-4 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {films.map((film) => (
-              <Link key={film.id} href={`/films/${film.id}`} passHref>
-                <div className="relative group bg-gray-100 rounded-lg overflow-hidden shadow-md cursor-pointer">
-                  <Image
-                    src={film.movie_banner}
-                    alt={film.title}
-                    width={400}
-                    height={250}
-                    className="w-full h-auto object-cover group-hover:scale-110 transition-transform duration-300"
-                  />
-                  <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-40 text-white p-2 text-xs">
-                    <h3 className="text-sm font-semibold">{film.title}</h3>
-                    <p className="text-xs">{film.director}</p>
-                    <p className="text-xs">{film.release_date}</p>
-                  </div>
-                </div>
-              </Link>
-            ))}
-          </div>
+          <FilmList films={films} />
         </div>
       </section>
+      <Footer />
     </main>
   );
 }
