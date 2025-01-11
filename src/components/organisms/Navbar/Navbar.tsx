@@ -9,36 +9,46 @@ import {
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import Autosuggest from "react-autosuggest";
 
-const fetchFilms = async (query: string) => {
+// Definir la interfaz para una película
+interface Film {
+  id: string;
+  title: string;
+}
+
+const fetchFilms = async (query: string): Promise<Film[]> => {
   const response = await fetch(`https://ghibliapi.vercel.app/films`);
-  const films = await response.json();
-  return films.filter((film: any) =>
+  const films: Film[] = await response.json();
+  return films.filter((film) =>
     film.title.toLowerCase().includes(query.toLowerCase())
   );
 };
 
 export function Navbar() {
-  const [search, setSearch] = useState("");
-  const [suggestions, setSuggestions] = useState<any[]>([]);
+  const [search, setSearch] = useState<string>("");
+  const [suggestions, setSuggestions] = useState<Film[]>([]);
   const inputRef = useRef<HTMLInputElement>(null);
 
   const handleChange = (
     event: React.FormEvent<HTMLElement>,
-    { newValue }: any
-  ) => {
+    { newValue }: { newValue: string }
+  ): void => {
     setSearch(newValue);
   };
 
-  const handleSuggestionsFetchRequested = async ({ value }: any) => {
+  const handleSuggestionsFetchRequested = async ({
+    value,
+  }: {
+    value: string;
+  }): Promise<void> => {
     const films = await fetchFilms(value);
     setSuggestions(films);
   };
 
-  const handleSuggestionsClearRequested = () => {
+  const handleSuggestionsClearRequested = (): void => {
     setSuggestions([]);
   };
 
-  const renderSuggestion = (suggestion: any) => (
+  const renderSuggestion = (suggestion: Film) => (
     <div className="hover:bg-indigo-100 cursor-pointer">
       <Link key={suggestion.id} href={`/films/${suggestion.id}`} passHref>
         <p className="text-gray-900">{suggestion.title}</p>
@@ -52,15 +62,21 @@ export function Navbar() {
     onChange: handleChange,
     ref: inputRef,
     className:
-      "block w-full rounded-md bg-white py-1.5 pl-10 pr-3  outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6",
+      "block w-full rounded-md bg-white py-1.5 pl-10 pr-3 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6",
   };
 
-  const renderSuggestionsContainer = ({ containerProps, children }: any) => {
+  const renderSuggestionsContainer = ({
+    containerProps,
+    children,
+  }: {
+    containerProps: React.HTMLProps<HTMLDivElement>;
+    children: React.ReactNode;
+  }) => {
     const inputWidth = inputRef.current ? inputRef.current.offsetWidth : "auto";
     return (
       <div
         {...containerProps}
-        className="max-h-60 overflow-y-auto bg-white shadow-lg rounded-md mt-1  absolute z-50"
+        className="max-h-60 overflow-y-auto bg-white shadow-lg rounded-md mt-1 absolute z-50"
         style={{ width: inputWidth }}
       >
         {children}
@@ -123,7 +139,7 @@ export function Navbar() {
                 suggestions={suggestions}
                 onSuggestionsFetchRequested={handleSuggestionsFetchRequested}
                 onSuggestionsClearRequested={handleSuggestionsClearRequested}
-                getSuggestionValue={(suggestion: any) => suggestion.title}
+                getSuggestionValue={(suggestion: Film) => suggestion.title}
                 renderSuggestion={renderSuggestion}
                 inputProps={inputProps}
                 renderSuggestionsContainer={renderSuggestionsContainer}
