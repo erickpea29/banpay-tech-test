@@ -3,6 +3,7 @@ import Image from "next/image";
 import { Navbar, RelatedFilms, Footer } from "@/components";
 import { useEffect, useState } from "react";
 import { Film } from "@/types/film";
+import { useFilms } from "@/hooks/useFilms";
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const res = await fetch("https://ghibliapi.vercel.app/films");
@@ -24,21 +25,24 @@ export const getStaticProps: GetStaticProps = async (context) => {
 };
 
 export default function FilmDetail({ film }: { film: Film }) {
+  const { films, loading, error } = useFilms();
   const [relatedFilms, setRelatedFilms] = useState<Film[]>([]);
 
   useEffect(() => {
-    async function fetchRelatedFilms() {
-      const res = await fetch("https://ghibliapi.vercel.app/films");
-      const films: Film[] = await res.json();
-
+    if (films.length > 0) {
       const filteredFilms = films.filter((f) => f.id !== film.id);
       const shuffledFilms = filteredFilms.sort(() => Math.random() - 0.5);
-
       setRelatedFilms(shuffledFilms.slice(0, 5));
     }
+  }, [films, film.id]);
 
-    fetchRelatedFilms();
-  }, [film.id]);
+  if (loading) {
+    return <p>Loading...</p>;
+  }
+
+  if (error) {
+    return <p className="text-red-500">{error}</p>;
+  }
 
   return (
     <main className="bg-gray-100">

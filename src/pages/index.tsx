@@ -1,13 +1,9 @@
 import { Navbar, FilmList, Footer } from "@/components";
-import { Film } from "@/types/film";
+import { useFilms } from "@/hooks/useFilms";
 
-export async function getStaticProps() {
-  const res = await fetch("https://ghibliapi.vercel.app/films");
-  const films: Film[] = await res.json();
-  return { props: { films } };
-}
+export default function Home() {
+  const { films, loading, error } = useFilms();
 
-export default function Home({ films }: { films: Film[] }) {
   return (
     <main>
       <Navbar />
@@ -27,7 +23,13 @@ export default function Home({ films }: { films: Film[] }) {
           </p>
         </div>
         <div className="mx-auto max-w-7xl px-2 sm:px-4 lg:px-8">
-          <FilmList films={films} />
+          {loading ? (
+            <p className="text-gray-700 text-center">Loading films...</p>
+          ) : error ? (
+            <p className="text-red-500 text-center">{error}</p>
+          ) : (
+            <FilmList films={films} />
+          )}
         </div>
       </section>
       <Footer />
