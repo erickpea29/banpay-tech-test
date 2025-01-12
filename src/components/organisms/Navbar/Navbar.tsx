@@ -125,6 +125,9 @@ export function Navbar() {
               Favorites
             </DisclosureButton>
           </SignedIn>
+          <div className="pl-2">
+            <ToggleMode />
+          </div>
         </div>
         <div className="border-t border-gray-200 dark:border-zinc-800 pb-3 pt-4 pl-4  ">
           <SignedIn>
