@@ -7,7 +7,7 @@ import {
   DisclosureButton,
   DisclosurePanel,
 } from "@headlessui/react";
-import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Button, SearchBar } from "@/components";
 import { useRouter } from "next/router";
 
@@ -97,25 +97,45 @@ export function Navbar() {
         </div>
       </div>
 
-      <DisclosurePanel className="lg:hidden">
+      <DisclosurePanel className="lg:hidden w-full max-w-full">
         <div className="space-y-1 pb-3 pt-2">
           <DisclosureButton
             as="a"
             href="#"
-            className="block border-l-4 border-slate-950 bg-slate-50 py-2 pl-3 pr-4 text-base font-medium text-black"
+            className="block py-2 pl-3 pr-4 text-base font-medium text-black"
           >
             Films
           </DisclosureButton>
+
+          <SignedIn>
+            <DisclosureButton
+              as="a"
+              href="/my-favorites"
+              className="block  py-2 pl-3 pr-4 text-base font-medium text-black"
+            >
+              Favorites
+            </DisclosureButton>
+          </SignedIn>
         </div>
-        <div className="border-t border-gray-200 pb-3 pt-4">
-          <button
-            type="button"
-            className="relative ml-auto shrink-0 rounded-full bg-white p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-          >
-            <span className="absolute -inset-1.5" />
-            <span className="sr-only">View notifications</span>
-            <BellIcon aria-hidden="true" className="size-6" />
-          </button>
+        <div className="border-t border-gray-200 pb-3 pt-4 pl-4  ">
+          <SignedIn>
+            <UserButton />
+          </SignedIn>
+        </div>
+        <div className="border-t border-gray-200 pb-3 pt-4  flex justify-center ">
+          <SignedOut>
+            <DisclosureButton as="a" href="/sign-in">
+              <Button
+                variant="outline"
+                onClick={() => (window.location.href = "/sign-in")}
+                className="relative w-96"
+              >
+                <span className="absolute -inset-1.5" />
+                <span className="sr-only">View notifications</span>
+                Sign in
+              </Button>
+            </DisclosureButton>
+          </SignedOut>
         </div>
       </DisclosurePanel>
     </Disclosure>
