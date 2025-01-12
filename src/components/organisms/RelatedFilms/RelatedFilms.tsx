@@ -12,13 +12,13 @@ export function RelatedFilms({ films }: RelatedFilmsProps) {
   }
 
   return (
-    <div className="px-4 py-8 mx-auto max-w-7xl">
-      <h2 className="text-2xl font-bold mb-6">Related Films</h2>
+    <div className="px-4 py-8 mx-auto max-w-7xl dark:bg-zinc-950">
+      <h2 className="text-2xl font-bold mb-6 dark:text-white">Related Films</h2>
       <div className="grid grid-cols-1 gap-6">
         {films.map((relatedFilm) => (
           <div
             key={relatedFilm.id}
-            className="flex flex-col md:flex-row bg-[#304a7a] rounded-lg overflow-hidden shadow-md"
+            className="flex flex-col md:flex-row bg-[#304a7a] dark:bg-zinc-950 border dark:border-zinc-800 rounded-lg overflow-hidden shadow-md"
           >
             <div className="md:w-2/5 w-full">
               <Image
@@ -44,7 +44,7 @@ export function RelatedFilms({ films }: RelatedFilmsProps) {
                 {relatedFilm.description}
               </p>
               <Link href={`/films/${relatedFilm.id}`} passHref>
-                <p className="text-sm text-blue-400 hover:underline">
+                <p className="text-sm text-blue-400 hover:underline dark:text-white">
                   See more
                 </p>
               </Link>

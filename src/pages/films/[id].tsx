@@ -42,7 +42,7 @@ interface FilmDetailProps {
 
 export default function FilmDetail({ film, relatedFilms }: FilmDetailProps) {
   return (
-    <main className="bg-gray-100">
+    <main className="bg-gray-100 dark:bg-zinc-950">
       <Navbar />
       <div
         className="relative max-h-full bg-cover bg-center"

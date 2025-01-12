@@ -10,17 +10,19 @@ export default function Home({ films, error }: HomeProps) {
   return (
     <main>
       <Navbar />
-      <section className="flex flex-col items-center justify-center text-center px-4 py-8">
-        <h1 className="text-4xl font-bold text-gray-900 mb-4">BROWSE</h1>
-        <p className="text-gray-700 text-lg leading-relaxed max-w-2xl">
+      <section className="flex flex-col items-center justify-center text-center px-4 py-8 dark:bg-zinc-950">
+        <h1 className="text-4xl font-bold text-gray-900 mb-4 dark:text-white">
+          BROWSE
+        </h1>
+        <p className="text-gray-700 text-lg leading-relaxed max-w-2xl dark:text-white">
           Discover the magical world of Studio Ghibli. Browse through iconic
           films, explore different genres, directors, and more. Find your next
           favorite animated film from the legendary animation studio.
         </p>
       </section>
-      <section className="bg-gray-100 py-12">
+      <section className="bg-gray-100 py-12 dark:bg-zinc-950">
         <div className="text-center mb-8">
-          <p className="text-gray-700 text-lg font-medium">
+          <p className="text-gray-700 text-lg font-medium dark:text-white ">
             All films from the Studio Ghibli Universe, featuring unique
             animation and unforgettable stories.
           </p>

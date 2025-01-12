@@ -31,8 +31,8 @@ export const SearchBar: React.FC<SearchBarProps> = ({ onSearchChange }) => {
 
   const renderSuggestion = (suggestion: Film) => (
     <Link key={suggestion.id} href={`/films/${suggestion.id}`} passHref>
-      <div className="hover:bg-slate-200 cursor-pointer pl-4">
-        <p className="text-gray-900">{suggestion.title}</p>
+      <div className="hover:bg-slate-200 cursor-pointer pl-4 dark:bg-zinc-950 dark:hover:bg-zinc-800">
+        <p className="text-gray-900 dark:text-white">{suggestion.title}</p>
       </div>
     </Link>
   );
@@ -43,7 +43,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({ onSearchChange }) => {
     onChange: handleChange,
     ref: inputRef,
     className:
-      "block w-full rounded-md bg-white py-1.5 pl-4 pr-3 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-black sm:text-sm/6",
+      "block w-full rounded-md bg-white py-1.5 pl-4 pr-3 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-black sm:text-sm/6 dark:bg-zinc-950 dark:placeholder-zinc-400 dark:text-zinc-200 dark:outline-zinc-600 dark:focus:outline-zinc-600 dark:focus:outline-2 dark:focus:-outline-offset-2 dark:focus:outline-black",
   };
 
   const renderSuggestionsContainer = ({

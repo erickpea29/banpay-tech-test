@@ -42,7 +42,7 @@ export const FilmList = ({ films }: FilmListProps) => {
         <div className="text-center mt-8">
           <span
             onClick={handleViewMore}
-            className="text-slate-950 cursor-pointer hover:underline"
+            className="text-slate-950 cursor-pointer hover:underline dark:text-white"
           >
             View More
           </span>
