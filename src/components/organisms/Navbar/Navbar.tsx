@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import {
   Disclosure,
   DisclosureButton,
   DisclosurePanel,
 } from "@headlessui/react";
-import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
-import { SearchBar } from "@/components";
+import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { Button, SearchBar } from "@/components";
 import { useRouter } from "next/router";
 
 export function Navbar() {
@@ -39,14 +40,27 @@ export function Navbar() {
             <div className="hidden lg:ml-6 lg:flex lg:space-x-8">
               <Link
                 href="/"
-                className={`inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-900 ${
-                  isHomePage
-                    ? "border-b-2 border-black"
-                    : "hover:border-b-2 hover:border-black"
+                className={`inline-flex items-center px-1 pt-1 text-sm font-medium ${
+                  router.pathname === "/"
+                    ? "border-b-2 border-black text-gray-900"
+                    : "text-gray-500 hover:border-b-2 hover:border-black"
                 }`}
               >
                 Films
               </Link>
+
+              <SignedIn>
+                <Link
+                  href="/my-favorites"
+                  className={`inline-flex items-center px-1 pt-1 text-sm font-medium ${
+                    router.pathname === "/my-favorites"
+                      ? "border-b-2 border-black text-gray-900"
+                      : "text-gray-500 hover:border-b-2 hover:border-black"
+                  }`}
+                >
+                  Favorites
+                </Link>
+              </SignedIn>
             </div>
           </div>
           <div className="flex flex-1 items-center justify-center px-2 lg:ml-6 lg:justify-end">
@@ -66,6 +80,22 @@ export function Navbar() {
               />
             </DisclosureButton>
           </div>
+          <div className="hidden lg:ml-4 lg:flex lg:items-center">
+            <SignedIn>
+              <UserButton />
+            </SignedIn>
+            <SignedOut>
+              <Button
+                variant="outline"
+                onClick={() => (window.location.href = "/sign-in")}
+                className="relative "
+              >
+                <span className="absolute -inset-1.5" />
+                <span className="sr-only">View notifications</span>
+                Sign in
+              </Button>
+            </SignedOut>
+          </div>
         </div>
       </div>
 
@@ -78,6 +108,16 @@ export function Navbar() {
           >
             Films
           </DisclosureButton>
+        </div>
+        <div className="border-t border-gray-200 pb-3 pt-4">
+          <button
+            type="button"
+            className="relative ml-auto shrink-0 rounded-full bg-white p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+          >
+            <span className="absolute -inset-1.5" />
+            <span className="sr-only">View notifications</span>
+            <BellIcon aria-hidden="true" className="size-6" />
+          </button>
         </div>
       </DisclosurePanel>
     </Disclosure>
