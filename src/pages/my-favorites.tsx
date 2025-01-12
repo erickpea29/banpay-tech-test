@@ -33,10 +33,14 @@ function MyFavorites() {
   return (
     <main className="flex flex-col min-h-screen">
       <Navbar />
-      <div className="flex-grow px-4 py-8 mx-auto max-w-7xl">
-        <h1 className="text-2xl font-bold mb-4">My Favorites</h1>
-        {favoriteFilms.length > 0 ? (
-          <div>
+      <section className="flex-grow">
+        <div className="flex flex-col items-center justify-center text-center px-4 py-8 dark:bg-zinc-950">
+          <h1 className="text-4xl font-bold text-gray-900 mb-4 dark:text-white">
+            My Favorites
+          </h1>
+        </div>
+        <div className="mx-auto max-w-7xl px-2 sm:px-4 lg:px-8">
+          {favoriteFilms.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {favoriteFilms.map((film) => (
                 <Link key={film.id} href={`/films/${film.id}`} passHref>
@@ -57,11 +61,11 @@ function MyFavorites() {
                 </Link>
               ))}
             </div>
-          </div>
-        ) : (
-          <p className="text-gray-500">You have no favorite movies yet.</p>
-        )}
-      </div>
+          ) : (
+            <p className="text-gray-500">You have no favorite movies yet.</p>
+          )}
+        </div>
+      </section>
       <Footer />
     </main>
   );
