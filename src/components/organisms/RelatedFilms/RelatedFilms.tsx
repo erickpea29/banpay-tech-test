@@ -7,6 +7,10 @@ interface RelatedFilmsProps {
 }
 
 export function RelatedFilms({ films }: RelatedFilmsProps) {
+  if (!films || films.length === 0) {
+    return <p>No related films available.</p>;
+  }
+
   return (
     <div className="px-4 py-8 mx-auto max-w-7xl">
       <h2 className="text-2xl font-bold mb-6">Related Films</h2>
