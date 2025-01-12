@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import Autosuggest from "react-autosuggest";
 import { Film } from "@/types/film";
 import Link from "next/link";
@@ -10,6 +10,7 @@ interface SearchBarProps {
 
 export const SearchBar: React.FC<SearchBarProps> = ({ onSearchChange }) => {
   const [search, setSearch] = useState<string>("");
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const { films } = useFilms(search);
 
@@ -40,6 +41,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({ onSearchChange }) => {
     placeholder: "Search Films",
     value: search,
     onChange: handleChange,
+    ref: inputRef,
     className:
       "block w-full rounded-md bg-white py-1.5 pl-4 pr-3 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-black sm:text-sm/6",
   };
@@ -51,10 +53,12 @@ export const SearchBar: React.FC<SearchBarProps> = ({ onSearchChange }) => {
     containerProps: React.HTMLProps<HTMLDivElement>;
     children: React.ReactNode;
   }) => {
+    const inputWidth = inputRef.current ? inputRef.current.offsetWidth : "auto";
     return (
       <div
         {...containerProps}
-        className="w-full max-w-lg lg:max-w-xs max-h-60 overflow-y-auto bg-white shadow-lg rounded-md mt-1 absolute z-50"
+        className="max-h-60 overflow-y-auto bg-white shadow-lg rounded-md mt-1 absolute z-50"
+        style={{ width: inputWidth }}
       >
         {children}
       </div>
