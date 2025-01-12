@@ -1,9 +1,7 @@
 import { GetStaticPaths, GetStaticProps } from "next";
 import Image from "next/image";
 import { Navbar, RelatedFilms, Footer } from "@/components";
-import { useEffect, useState } from "react";
 import { Film } from "@/types/film";
-import { useFilms } from "@/hooks/useFilms";
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const res = await fetch("https://ghibliapi.vercel.app/films");
@@ -18,32 +16,31 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const { id } = context.params!;
+
   const res = await fetch(`https://ghibliapi.vercel.app/films/${id}`);
   const film: Film = await res.json();
 
-  return { props: { film } };
+  const filmsRes = await fetch("https://ghibliapi.vercel.app/films");
+  const films: Film[] = await filmsRes.json();
+
+  const filteredFilms = films.filter((f) => f.id !== film.id);
+  const shuffledFilms = filteredFilms.sort(() => Math.random() - 0.5);
+  const relatedFilms = shuffledFilms.slice(0, 5);
+
+  return {
+    props: {
+      film,
+      relatedFilms,
+    },
+  };
 };
 
-export default function FilmDetail({ film }: { film: Film }) {
-  const { films, loading, error } = useFilms();
-  const [relatedFilms, setRelatedFilms] = useState<Film[]>([]);
+interface FilmDetailProps {
+  film: Film;
+  relatedFilms: Film[];
+}
 
-  useEffect(() => {
-    if (films.length > 0) {
-      const filteredFilms = films.filter((f) => f.id !== film.id);
-      const shuffledFilms = filteredFilms.sort(() => Math.random() - 0.5);
-      setRelatedFilms(shuffledFilms.slice(0, 5));
-    }
-  }, [films, film.id]);
-
-  if (loading) {
-    return <p>Loading...</p>;
-  }
-
-  if (error) {
-    return <p className="text-red-500">{error}</p>;
-  }
-
+export default function FilmDetail({ film, relatedFilms }: FilmDetailProps) {
   return (
     <main className="bg-gray-100">
       <Navbar />

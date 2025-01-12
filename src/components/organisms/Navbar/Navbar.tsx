@@ -19,8 +19,6 @@ export function Navbar() {
     setSearch(search);
   };
 
-  const isHomePage = router.pathname === "/";
-
   return (
     <Disclosure as="nav" className="bg-white shadow">
       <div className="mx-auto max-w-7xl px-2 sm:px-4 lg:px-8">

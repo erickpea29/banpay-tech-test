@@ -14,7 +14,7 @@ export const FilmList = ({ films }: FilmListProps) => {
     setVisibleCount((prevCount) => prevCount + 12);
   };
 
-  const visibleFilms = films.slice(0, visibleCount);
+  const visibleFilms = Array.isArray(films) ? films.slice(0, visibleCount) : [];
 
   return (
     <div>

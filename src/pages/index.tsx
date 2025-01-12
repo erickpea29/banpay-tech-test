@@ -1,9 +1,12 @@
 import { Navbar, FilmList, Footer } from "@/components";
-import { useFilms } from "@/hooks/useFilms";
+import { Film } from "@/types/film";
 
-export default function Home() {
-  const { films, loading, error } = useFilms();
+interface HomeProps {
+  films: Film[];
+  error: string | null;
+}
 
+export default function Home({ films, error }: HomeProps) {
   return (
     <main>
       <Navbar />
@@ -23,9 +26,7 @@ export default function Home() {
           </p>
         </div>
         <div className="mx-auto max-w-7xl px-2 sm:px-4 lg:px-8">
-          {loading ? (
-            <p className="text-gray-700 text-center">Loading films...</p>
-          ) : error ? (
+          {error ? (
             <p className="text-red-500 text-center">{error}</p>
           ) : (
             <FilmList films={films} />
@@ -35,4 +36,27 @@ export default function Home() {
       <Footer />
     </main>
   );
+}
+
+export async function getServerSideProps() {
+  try {
+    const res = await fetch("https://ghibliapi.vercel.app/films");
+    if (!res.ok) {
+      throw new Error("Failed to fetch films");
+    }
+    const films: Film[] = await res.json();
+    return {
+      props: {
+        films,
+        error: null,
+      },
+    };
+  } catch (err) {
+    return {
+      props: {
+        films: [],
+        error: (err as Error).message,
+      },
+    };
+  }
 }
