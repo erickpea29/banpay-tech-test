@@ -10,9 +10,9 @@ export default async function POST(request: NextRequest) {
     const user = await client.users.getUser(userId);
 
     const currentFavorites: string[] = Array.isArray(
-      user.publicMetadata?.peliculas
+      user.publicMetadata?.favorites
     )
-      ? user.publicMetadata.peliculas
+      ? user.publicMetadata.favorites
       : [];
 
     if (currentFavorites.includes(filmId)) {

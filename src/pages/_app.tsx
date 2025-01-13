@@ -4,6 +4,7 @@ import type { AppProps } from "next/app";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Roboto } from "next/font/google";
 import { Nunito_Sans } from "next/font/google";
+import { Toaster } from "react-hot-toast";
 
 const roboto = Roboto({
   variable: "--font-roboto",
@@ -28,6 +29,7 @@ export default function App({ Component, pageProps }: AppProps) {
           disableTransitionOnChange
         >
           <Component {...pageProps} />
+          <Toaster />
         </ThemeProvider>
       </ClerkProvider>
     </div>

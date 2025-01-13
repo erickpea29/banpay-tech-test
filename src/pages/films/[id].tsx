@@ -6,6 +6,7 @@ import { HeartIcon } from "@heroicons/react/24/outline";
 import { useAuth } from "@clerk/nextjs";
 import { useUser } from "@clerk/nextjs";
 import { useRouter } from "next/router";
+import { toast } from "react-hot-toast";
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const res = await fetch("https://ghibliapi.vercel.app/films");
@@ -49,6 +50,9 @@ export default function FilmDetail({ film, relatedFilms }: FilmDetailProps) {
   const router = useRouter();
   const { user } = useUser();
 
+  const favorites = user?.publicMetadata?.favorites;
+  const isFavorite = Array.isArray(favorites) && favorites.includes(film.id);
+
   const handleSave = async () => {
     if (isSignedIn) {
       try {
@@ -65,18 +69,19 @@ export default function FilmDetail({ film, relatedFilms }: FilmDetailProps) {
 
         const data = await response.json();
         if (data.success) {
-          alert("Film added to favorites!");
+          toast.success("Film added to favorites!");
         } else {
-          alert(data.message || "Something went wrong.");
+          toast.error(data.message || "Something went wrong.");
         }
       } catch (error) {
         console.log(error);
-        alert("Error adding film to favorites.");
+        toast.error("Error adding film to favorites.");
       }
     } else {
       router.push("/sign-in");
     }
   };
+
   return (
     <main className="bg-gray-100 dark:bg-zinc-950">
       <Navbar />
@@ -93,9 +98,18 @@ export default function FilmDetail({ film, relatedFilms }: FilmDetailProps) {
             <button
               onClick={handleSave}
               aria-label="Add to favorites"
-              className="absolute right-4 text-gray-300 hover:text-red-500  focus:outline-none transition-colors"
+              className={`absolute right-4 text-gray-300 hover:text-red-500 focus:outline-none transition-colors ${
+                isFavorite ? "text-red-500" : ""
+              }`}
+              disabled={!isSignedIn || isFavorite}
             >
-              <HeartIcon className="w-7 h-7 hover:fill-current hover:text-red-500" />
+              <HeartIcon
+                className={`w-7 h-7 ${
+                  isFavorite
+                    ? "fill-current text-red-500"
+                    : "hover:text-red-500"
+                }`}
+              />
             </button>
 
             <div className="flex flex-col items-center md:flex-row md:items-start">
