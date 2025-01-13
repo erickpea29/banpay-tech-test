@@ -2,6 +2,9 @@ import { GetStaticPaths, GetStaticProps } from "next";
 import Image from "next/image";
 import { Navbar, RelatedFilms, Footer } from "@/components";
 import { Film } from "@/types/film";
+import { HeartIcon } from "@heroicons/react/24/outline";
+import { useAuth } from "@clerk/nextjs";
+import { useRouter } from "next/router";
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const res = await fetch("https://ghibliapi.vercel.app/films");
@@ -41,6 +44,16 @@ interface FilmDetailProps {
 }
 
 export default function FilmDetail({ film, relatedFilms }: FilmDetailProps) {
+  const { isSignedIn } = useAuth();
+  const router = useRouter();
+
+  const handleSave = () => {
+    if (isSignedIn) {
+      //TODO: Save the film to the user's favorites
+    } else {
+      router.push("/sign-in");
+    }
+  };
   return (
     <main className="bg-gray-100 dark:bg-zinc-950">
       <Navbar />
@@ -53,27 +66,39 @@ export default function FilmDetail({ film, relatedFilms }: FilmDetailProps) {
         <div className="absolute inset-0 bg-black/60 backdrop-blur-md"></div>
 
         <div className="relative z-10 px-4 py-8 mx-auto max-w-7xl text-white">
-          <div className="flex flex-col items-center md:flex-row md:items-start">
-            <Image
-              src={film.image}
-              alt={film.title}
-              priority
-              width={200}
-              height={345}
-              className="rounded-lg shadow-lg mb-6 md:mb-0 md:mr-8"
-            />
-            <div>
-              <h1 className="text-4xl font-bold mb-4">{film.title}</h1>
-              <div className="flex items-center space-x-4 mb-4">
-                <h5 className="text-1xl font-semibold">{film.release_date}</h5>
-                <blockquote className="text-1xl ">
-                  <p>{film.original_title_romanised}</p>
-                </blockquote>
+          <div className="relative">
+            <button
+              onClick={handleSave}
+              aria-label="Add to favorites"
+              className="absolute right-4 text-gray-300 hover:text-red-500  focus:outline-none transition-colors"
+            >
+              <HeartIcon className="w-7 h-7 hover:fill-current hover:text-red-500" />
+            </button>
+
+            <div className="flex flex-col items-center md:flex-row md:items-start">
+              <Image
+                src={film.image}
+                alt={film.title}
+                priority
+                width={200}
+                height={345}
+                className="rounded-lg shadow-lg mb-6 md:mb-0 md:mr-8"
+              />
+              <div>
+                <h1 className="text-4xl font-bold mb-4">{film.title}</h1>
+                <div className="flex items-center space-x-4 mb-4">
+                  <h5 className="text-1xl font-semibold">
+                    {film.release_date}
+                  </h5>
+                  <blockquote className="text-1xl">
+                    <p>{film.original_title_romanised}</p>
+                  </blockquote>
+                </div>
+
+                <h5 className="text-1xl mb-4">Directed by {film.director}</h5>
+
+                <p className="text-gray-300 text-lg mb-6">{film.description}</p>
               </div>
-
-              <h5 className="text-1xl mb-4">Directed by {film.director}</h5>
-
-              <p className="text-gray-300 text-lg mb-6">{film.description}</p>
             </div>
           </div>
         </div>

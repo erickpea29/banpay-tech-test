@@ -8,7 +8,7 @@ export default function App({ Component, pageProps }: AppProps) {
     <ClerkProvider>
       <ThemeProvider
         attribute="class"
-        defaultTheme="system"
+        defaultTheme="light"
         enableSystem
         disableTransitionOnChange
       >

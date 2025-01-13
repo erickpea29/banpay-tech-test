@@ -1,5 +1,7 @@
 import { Navbar, FilmList, Footer } from "@/components";
 import { Film } from "@/types/film";
+import Image from "next/image";
+import { useTheme } from "next-themes";
 
 interface HomeProps {
   films: Film[];
@@ -7,13 +9,22 @@ interface HomeProps {
 }
 
 export default function Home({ films, error }: HomeProps) {
+  const { theme } = useTheme();
   return (
     <main>
       <Navbar />
       <section className="flex flex-col items-center justify-center text-center px-4 py-8 dark:bg-zinc-950">
-        <h1 className="text-4xl font-bold text-gray-900 mb-4 dark:text-white">
-          BROWSE
-        </h1>
+        <Image
+          src={
+            theme === "dark"
+              ? "/images/Studio_Ghibli-dark.webp"
+              : "/images/Studio_Ghibli.webp"
+          }
+          alt="Studio Ghibli"
+          width={300}
+          height={100}
+          className="mb-4"
+        />
         <p className="text-gray-700 text-lg leading-relaxed max-w-2xl dark:text-white">
           Discover the magical world of Studio Ghibli. Browse through iconic
           films, explore different genres, directors, and more. Find your next
