@@ -101,7 +101,7 @@ export default function FilmDetail({ film, relatedFilms }: FilmDetailProps) {
               className={`absolute right-4 text-gray-300 hover:text-red-500 focus:outline-none transition-colors ${
                 isFavorite ? "text-red-500" : ""
               }`}
-              disabled={!isSignedIn || isFavorite}
+              disabled={isFavorite}
             >
               <HeartIcon
                 className={`w-7 h-7 ${
