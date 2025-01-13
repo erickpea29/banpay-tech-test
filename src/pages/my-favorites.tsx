@@ -12,7 +12,7 @@ function MyFavorites() {
 
   useEffect(() => {
     const fetchFavorites = async () => {
-      const movies = user?.publicMetadata?.movies || {};
+      const movies = user?.publicMetadata?.favorites || {};
       const filmPromises = Object.values(movies).map(async (movieId) => {
         const res = await fetch(
           `https://ghibliapi.vercel.app/films/${movieId}`

@@ -34,7 +34,7 @@ export const SortBy = ({
 
   useEffect(() => {
     onChange(selectedOption.value);
-  }, [selectedOption]);
+  }, [selectedOption, onChange]);
 
   return (
     <div className="flex justify-start  pb-6 ">

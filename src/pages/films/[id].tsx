@@ -4,6 +4,7 @@ import { Navbar, RelatedFilms, Footer } from "@/components";
 import { Film } from "@/types/film";
 import { HeartIcon } from "@heroicons/react/24/outline";
 import { useAuth } from "@clerk/nextjs";
+import { useUser } from "@clerk/nextjs";
 import { useRouter } from "next/router";
 
 export const getStaticPaths: GetStaticPaths = async () => {
@@ -46,10 +47,32 @@ interface FilmDetailProps {
 export default function FilmDetail({ film, relatedFilms }: FilmDetailProps) {
   const { isSignedIn } = useAuth();
   const router = useRouter();
+  const { user } = useUser();
 
-  const handleSave = () => {
+  const handleSave = async () => {
     if (isSignedIn) {
-      //TODO: Save the film to the user's favorites
+      try {
+        const response = await fetch("/api/favorites", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            filmId: film.id,
+            userId: isSignedIn ? user?.id : "",
+          }),
+        });
+
+        const data = await response.json();
+        if (data.success) {
+          alert("Film added to favorites!");
+        } else {
+          alert(data.message || "Something went wrong.");
+        }
+      } catch (error) {
+        console.log(error);
+        alert("Error adding film to favorites.");
+      }
     } else {
       router.push("/sign-in");
     }

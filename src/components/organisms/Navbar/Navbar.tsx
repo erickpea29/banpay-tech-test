@@ -17,8 +17,6 @@ export function Navbar() {
   const router = useRouter();
   const { theme } = useTheme();
 
-  console.log(theme);
-
   const handleSearchChange = (search: string) => {
     setSearch(search);
   };

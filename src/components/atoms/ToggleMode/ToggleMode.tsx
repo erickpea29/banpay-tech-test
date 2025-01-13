@@ -10,7 +10,7 @@ export const ToggleMode = () => {
 
   useEffect(() => {
     setMounted(true);
-  });
+  }, []);
 
   if (!mounted) {
     return <Button variant="secondary" size="icon" disabled={true}></Button>;
