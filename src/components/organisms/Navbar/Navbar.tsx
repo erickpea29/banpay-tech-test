@@ -110,7 +110,7 @@ export function Navbar() {
         <div className="space-y-1 pb-3 pt-2">
           <DisclosureButton
             as="a"
-            href="#"
+            href="/"
             className="block py-2 pl-3 pr-4 text-base font-medium text-black dark:text-white"
           >
             Films

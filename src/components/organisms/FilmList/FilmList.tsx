@@ -1,7 +1,8 @@
+import { useState } from "react";
+import { Film } from "@/types/film";
+import { SortBy, SortByOptions } from "@/components/";
 import Link from "next/link";
 import Image from "next/image";
-import { Film } from "@/types/film";
-import { useState } from "react";
 
 interface FilmListProps {
   films: Film[];
@@ -9,15 +10,27 @@ interface FilmListProps {
 
 export const FilmList = ({ films }: FilmListProps) => {
   const [visibleCount, setVisibleCount] = useState(12);
+  const [sortOption, setSortOption] = useState<SortByOptions>(
+    SortByOptions.newest
+  );
 
   const handleViewMore = () => {
     setVisibleCount((prevCount) => prevCount + 12);
   };
 
-  const visibleFilms = Array.isArray(films) ? films.slice(0, visibleCount) : [];
+  const sortedFilms = [...films].sort((a, b) => {
+    if (sortOption === SortByOptions.newest) {
+      return parseInt(b.release_date) - parseInt(a.release_date);
+    }
+    return parseInt(a.release_date) - parseInt(b.release_date);
+  });
+
+  const visibleFilms = sortedFilms.slice(0, visibleCount);
 
   return (
     <div>
+      <SortBy onChange={(value) => setSortOption(value)} />
+
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {visibleFilms.map((film) => (
           <Link key={film.id} href={`/films/${film.id}`} passHref>
@@ -38,6 +51,7 @@ export const FilmList = ({ films }: FilmListProps) => {
           </Link>
         ))}
       </div>
+
       {visibleCount < films.length && (
         <div className="text-center mt-8">
           <span

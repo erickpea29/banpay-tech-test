@@ -31,7 +31,7 @@ function MyFavorites() {
   }, [user]);
 
   return (
-    <main className="flex flex-col min-h-screen">
+    <main className="flex flex-col min-h-screen dark:bg-zinc-950">
       <Navbar />
       <section className="flex-grow">
         <div className="flex flex-col items-center justify-center text-center px-4 py-8 dark:bg-zinc-950">
@@ -39,7 +39,7 @@ function MyFavorites() {
             My Favorites
           </h1>
         </div>
-        <div className="mx-auto max-w-7xl px-2 sm:px-4 lg:px-8">
+        <div className="mx-auto max-w-7xl px-2 sm:px-4 lg:px-8 ">
           {favoriteFilms.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {favoriteFilms.map((film) => (
