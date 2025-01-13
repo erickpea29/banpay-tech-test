@@ -1,40 +1,90 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/pages/api-reference/create-next-app).
+Studio Ghibli Movies App
+========================
 
-## Getting Started
+Una aplicación sencilla que lista y permite buscar películas del Studio Ghibli utilizando su API pública. La interfaz está diseñada para ser clara, estética y funcional, alineada con los principios de un producto listo para producción.
 
-First, run the development server:
+Tecnologías utilizadas
+----------------------
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+-   **Next.js**: Framework de React para renderizado del lado del servidor (SSR) y generación de sitios estáticos (SSG).
+-   **React**: Biblioteca para construir interfaces de usuario interactivas.
+-   **Tailwind CSS**: Framework de estilos para diseño rápido y personalizable.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+* * * * *
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+Características principales
+---------------------------
 
-[API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+-   Listado de películas con datos obtenidos desde la Studio Ghibli API (https://ghibliapi.herokuapp.com/).
+-   Buscador con soporte para autocompletado.
+-   Detalle básico de cada película.
+-   Interfaz limpia y agradable a la vista, con un diseño responsivo.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) instead of React pages.
+* * * * *
 
-This project uses [`next/font`](https://nextjs.org/docs/pages/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Requisitos previos
+------------------
 
-## Learn More
+Asegúrate de tener instalados los siguientes elementos en tu sistema:
 
-To learn more about Next.js, take a look at the following resources:
+-   **Node.js**: Versión 16 o superior.
+-   **npm** o **yarn**: Para instalar dependencias y ejecutar el proyecto.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn-pages-router) - an interactive Next.js tutorial.
+* * * * *
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Instrucciones para desplegar el proyecto
+----------------------------------------
 
-## Deploy on Vercel
+Sigue estos pasos para ejecutar el proyecto en tu entorno local:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1.  **Clonar el repositorio**:
+    `git clone https://github.com/tu-usuario/studio-ghibli-app.git
+    cd studio-ghibli-app`
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/pages/building-your-application/deploying) for more details.
+2.  **Instalar las dependencias**:\
+    Si utilizas npm:
+
+    `npm install`
+
+    O si prefieres yarn:
+
+    `yarn`
+
+3.  **Iniciar el servidor de desarrollo**:\
+    Si utilizas npm:
+
+    `npm run dev`
+
+    O si prefieres yarn:
+
+    `yarn dev`
+
+4.  **Abrir en el navegador**:\
+    Ve a <http://localhost:3000> para ver la aplicación en funcionamiento.
+
+* * * * *
+
+Cómo llevarlo a otro nivel
+--------------------------
+
+Si este proyecto fuera un producto real, estas son algunas ideas de mejoras y cuánto tiempo podría tomar desarrollarlas:
+
+1.  **Ampliación de la API**
+
+    -   Si la API proporcionara más información, se podrían consumir datos como:
+        -   **Directores**: Crear páginas dedicadas para cada director.
+        -   **Guionistas**: Mostrar los detalles de los escritores detrás de las películas.
+        -   **Colaboradores**: Agregar información de otros miembros del equipo creativo.
+    -   Tiempo estimado: 1-2 semanas (dependiendo del diseño y las funcionalidades adicionales).
+2.  **Interactividad para el usuario**
+
+    -   Crear una sección de comentarios para que los usuarios puedan compartir sus opiniones sobre las películas.
+    -   Implementar un sistema de ranking para que los usuarios puedan calificar sus películas favoritas con un sistema de estrellas.
+    -   Tiempo estimado: 2-3 semanas.
+3.  **Optimización y escalabilidad**
+
+    -   Implementar carga perezosa (lazy loading) para mejorar el rendimiento cuando se muestran muchas películas.
+    -   Mejorar la experiencia de usuario con animaciones suaves y transiciones.
+4.  **Optimización para dispositivos móviles**
+
+    -   Asegurarse de que la aplicación sea completamente responsiva y fácil de usar en cualquier dispositivo.
