@@ -1,6 +1,6 @@
 import { GetStaticPaths, GetStaticProps } from "next";
 import Image from "next/image";
-import { Navbar, RelatedFilms, Footer } from "@/components";
+import { Navbar, RelatedFilms, Footer, StarRating } from "@/components";
 import { Film } from "@/types/film";
 import { HeartIcon } from "@heroicons/react/24/outline";
 import { useAuth } from "@clerk/nextjs";
@@ -122,7 +122,8 @@ export default function FilmDetail({ film, relatedFilms }: FilmDetailProps) {
                 className="rounded-lg shadow-lg mb-6 md:mb-0 md:mr-8"
               />
               <div>
-                <h1 className="text-4xl font-bold mb-4">{film.title}</h1>
+                <h1 className="text-4xl font-bold mb-1">{film.title}</h1>
+                <StarRating score={Number(film.rt_score)} />
                 <div className="flex items-center space-x-4 mb-4">
                   <h5 className="text-1xl font-semibold">
                     {film.release_date}
