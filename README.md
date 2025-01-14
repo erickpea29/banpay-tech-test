@@ -1,14 +1,17 @@
 Studio Ghibli Movies App
 ========================
 
-Una aplicación sencilla que lista y permite buscar películas del Studio Ghibli utilizando su API pública. La interfaz está diseñada para ser clara, estética y funcional, alineada con los principios de un producto listo para producción.
-
-Tecnologías utilizadas
+### Tecnologías utilizadas
 ----------------------
 
--   **Next.js**: Framework de React para renderizado del lado del servidor (SSR) y generación de sitios estáticos (SSG).
--   **React**: Biblioteca para construir interfaces de usuario interactivas.
--   **Tailwind CSS**: Framework de estilos para diseño rápido y personalizable.
+- **Next.js**: Framework de React que permite el renderizado del lado del servidor (SSR) y la generación de sitios estáticos (SSG), lo que mejora el rendimiento y la optimización para SEO. Es ideal para aplicaciones modernas y escalables.
+- **React**: Biblioteca de JavaScript para construir interfaces de usuario interactivas y reutilizables. Su enfoque basado en componentes facilita el desarrollo y mantenimiento de aplicaciones complejas.
+- **Tailwind CSS**: Framework de diseño basado en utilidades que permite un desarrollo rápido y flexible. Facilita la personalización de los estilos sin necesidad de escribir CSS adicional.
+- **Cypress**: Herramienta de pruebas end-to-end que permite automatizar pruebas en aplicaciones web. Se utiliza para asegurar que las funcionalidades de la app funcionen correctamente en diversos escenarios de usuario.
+- **ESLint**: Herramienta para la detección de errores y la mejora de la calidad del código JavaScript. Se usa para mantener el código limpio y consistente, asegurando buenas prácticas de desarrollo y evitando errores comunes.
+
+Estas tecnologías se eligieron para ofrecer un entorno de desarrollo eficiente y optimizado, desde la creación de interfaces interactivas hasta la garantía de un código de calidad y una app robusta y fácil de mantener.
+
 
 * * * * *
 
@@ -21,6 +24,18 @@ Características principales
 -   Interfaz limpia y agradable a la vista, con un diseño responsivo.
 
 * * * * *
+
+### Características adicionales
+-----------------------------
+
+Para mejorar la experiencia y el rendimiento de la aplicación, se tomaron las siguientes decisiones y características adicionales:
+
+- **Renderizado del lado del servidor (SSR)**: Se decidió utilizar SSR para una carga más rápida de la página, ya que los componentes no cambiarían después de la carga inicial, mejorando la performance y la optimización para SEO.
+- **Sesiones con Clerk**: Se implementó Clerk para gestionar las sesiones de usuario, lo que permite manejar autenticación y gestión de sesiones de forma sencilla y segura.
+- **Sección de favoritos**: Con las sesiones de Clerk, se añadió una funcionalidad de favoritos, permitiendo a los usuarios guardar sus películas preferidas para un acceso rápido.
+- **Tema oscuro**: Se implementó un tema oscuro, mejorando la accesibilidad y la experiencia visual de la aplicación, especialmente en entornos con poca luz.
+- **Pruebas E2E con Cypress**: Se agregaron pruebas end-to-end (E2E) con Cypress para garantizar que la landing page de la aplicación y las funcionalidades de búsqueda funcionen correctamente en diferentes escenarios de usuario.
+
 
 Requisitos previos
 ------------------
@@ -63,6 +78,13 @@ Sigue estos pasos para ejecutar el proyecto en tu entorno local:
     Ve a <http://localhost:3000> para ver la aplicación en funcionamiento.
 
 * * * * *
+
+### Cómo probar Cypress en local
+----------------------
+
+Para ejecutar Cypress en tu entorno local, abre la interfaz gráfica de Cypress con el siguiente comando:
+
+`npm run cy:open`
 
 Cómo llevarlo a otro nivel
 --------------------------
