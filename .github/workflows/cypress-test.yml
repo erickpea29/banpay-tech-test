@@ -5,13 +5,25 @@ on: push
 jobs:
   cypress-run:
     runs-on: ubuntu-24.04
+
     steps:
-      - name: Checkout
+      - name: Checkout code
         uses: actions/checkout@v4
-      # Install npm dependencies, cache them correctly
-      # and run all Cypress tests
-      - name: Cypress run
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build the application
+        run: npm run build
+
+      - name: Run the application locally
+        run: |
+          nohup npm run start & # Esto ejecutará tu app localmente en segundo plano
+
+      - name: Install Cypress
+        run: npm install cypress
+
+      - name: Run Cypress tests
         uses: cypress-io/github-action@v6
-        # with:
-        #   build: npm run build
-        #   start: npm start
+        with:
+          config: baseUrl=http://localhost:3000
