@@ -5,7 +5,8 @@ on: push
 jobs:
   cypress-run:
     runs-on: ubuntu-24.04
-
+    env:
+      NEXT_PUBLIC_CLERK_FRONTEND_API: ${{ secrets.CLERK_PUBLISHABLE_KEY }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -18,7 +19,7 @@ jobs:
 
       - name: Run the application locally
         run: |
-          nohup npm run start & # Esto ejecutará tu app localmente en segundo plano
+          nohup npm run start &
 
       - name: Install Cypress
         run: npm install cypress
